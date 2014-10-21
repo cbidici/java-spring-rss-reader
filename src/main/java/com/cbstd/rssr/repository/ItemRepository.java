@@ -9,5 +9,8 @@ import com.cbstd.rssr.entity.Blog;
 import com.cbstd.rssr.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
+	
 	public List<Item> findByBlog(Blog blog, Pageable pageable);
+	
+	public Item findByBlogAndLink(Blog blog, String link); 
 }

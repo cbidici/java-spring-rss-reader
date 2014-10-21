@@ -19,12 +19,22 @@
 	
 	<definition name="userdetail" extends="common">
 		<put-attribute name="pageId" value="userdetail" />
-		<put-attribute name="body" value="/WEB-INF/jsp/userdetail.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/account.jsp" />
+	</definition>
+	
+	<definition name="account" extends="common">
+		<put-attribute name="pageId" value="account" />
+		<put-attribute name="body" value="/WEB-INF/jsp/account.jsp" />
 	</definition>
 	
 	<definition name="register" extends="common">
 		<put-attribute name="pageId" value="register" />
 		<put-attribute name="body" value="/WEB-INF/jsp/register.jsp" />
+	</definition>
+	
+	<definition name="feeds" extends="common">
+		<put-attribute name="pageId" value="feeds" />
+		<put-attribute name="body" value="/WEB-INF/jsp/feeds.jsp" />
 	</definition>
 	
 	<definition name="login" extends="common">

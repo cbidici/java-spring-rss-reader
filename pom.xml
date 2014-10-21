@@ -18,11 +18,32 @@
 		<org.hsqldb.version>2.3.2</org.hsqldb.version>
 		<jstl.version>1.2</jstl.version>
 		<org.springframework.security.version>3.2.5.RELEASE</org.springframework.security.version>
+		<org.hibernate.validator.version>5.1.2.Final</org.hibernate.validator.version>
+		<junit.junit.version>4.11</junit.junit.version>
 	</properties>
 
 	<dependencies>
-
+	
 		<!-- ... other dependency elements ... -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${org.hibernate.validator.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springframework.security.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>

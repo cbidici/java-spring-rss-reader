@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="role")
 public class Role {
 
 	@Id
@@ -16,7 +18,7 @@ public class Role {
 
 	private String role;
 
-	@ManyToMany
+	@ManyToMany(mappedBy="roles")
 	private List<User> users;
 
 	public List<User> getUsers() {

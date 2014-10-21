@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cbstd.rssr.entity.Blog;
@@ -17,7 +18,7 @@ import com.cbstd.rssr.repository.BlogRepository;
 import com.cbstd.rssr.repository.ItemRepository;
 import com.cbstd.rssr.repository.RoleRepository;
 import com.cbstd.rssr.repository.UserRepository;
-import com.cbstd.rssr.repository.system.DictionaryRepository;
+import com.cbstd.rssr.util.Constants;
 
 @Transactional
 @Service
@@ -35,28 +36,27 @@ public class InitDBService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@Autowired
-	private DictionaryRepository dictionaryRepository;
-	
 	@PostConstruct
 	public void init()
-	{		
+	{	
+		BCryptPasswordEncoder bEncoder = new BCryptPasswordEncoder();
 		
 		Role roleReader = new Role();
-		roleReader.setRole("ROLE_READER");
+		roleReader.setRole(Constants.ROLE_READER);
 		roleRepository.save(roleReader);
 		
 		Role roleAdmin = new Role();
-		roleAdmin.setRole("ROLE_ADMIN");
+		roleAdmin.setRole(Constants.ROLE_ADMIN);
 		roleRepository.save(roleAdmin);
 		
 		User userAdmin = new User();
 		userAdmin.setEmail("cbidici@gmail.com");
 		userAdmin.setUsername("admin");
-		userAdmin.setPassword("admin");
+		userAdmin.setPassword(bEncoder.encode("admin"));
 		userAdmin.setRoles(new ArrayList<Role>());
 		userAdmin.getRoles().add(roleReader);
 		userAdmin.getRoles().add(roleAdmin);
+		userAdmin.setEnabled(true);
 		userRepository.save(userAdmin);
 		
 		Blog blogJavavids = new Blog();
@@ -65,19 +65,21 @@ public class InitDBService {
 		blogJavavids.setUser(userAdmin);
 		blogRepository.save(blogJavavids);
 		
-		Item item1 = new Item();
-		item1.setBlog(blogJavavids);
-		item1.setTitle("First Item");
-		item1.setLink("http://www.google.com.tr");
-		item1.setPublishDate(new Date());
-		itemRepository.save(item1);
-		
-		Item item2 = new Item();
-		item2.setBlog(blogJavavids);
-		item2.setTitle("Second Item");
-		item2.setLink("http://www.google.com.tr");
-		item2.setPublishDate(new Date());
-		itemRepository.save(item2);
+//		Item item1 = new Item();
+//		item1.setBlog(blogJavavids);
+//		item1.setTitle("First Item");
+//		item1.setLink("http://www.google.com.tr");
+//		item1.setPublishDate(new Date());
+//		item1.setDescription("Item1 Des");
+//		itemRepository.save(item1);
+//		
+//		Item item2 = new Item();
+//		item2.setBlog(blogJavavids);
+//		item2.setTitle("Second Item");
+//		item2.setLink("http://www.google.com.tr");
+//		item2.setPublishDate(new Date());
+//		item2.setDescription("Item2 Des");
+//		itemRepository.save(item2);
 	}
 	
 }

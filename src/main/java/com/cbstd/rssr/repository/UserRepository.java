@@ -7,4 +7,6 @@ import com.cbstd.rssr.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>, UserRepositoryCustom {
 
+	User findByUsername(String username);
+
 }

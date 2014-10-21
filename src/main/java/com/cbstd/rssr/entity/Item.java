@@ -6,19 +6,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
+@Table(name="item")
 public class Item {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 
+	@Column(length = 1000)
 	private String title;
 
+	@Lob
+	@Type(type = "org.hibernate.type.StringClobType")
+	@Column(length = Integer.MAX_VALUE)
 	private String description;
 
+	@Column(length = 1000)
 	private String link;
 
 	@Column(name = "publish_date")

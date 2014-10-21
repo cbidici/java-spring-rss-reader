@@ -6,6 +6,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+	<mvc:annotation-driven />
+
 	<context:component-scan base-package="com.cbstd.rssr.controller"></context:component-scan>
 
 	<bean id="tilesConfigurer"
@@ -32,7 +34,12 @@
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:application" />
+		<property name="basenames">
+			<list>
+				<value>classpath:application</value>
+				<value>classpath:ValidationMessages</value>
+			</list>
+		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
