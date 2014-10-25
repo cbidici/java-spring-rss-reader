@@ -8,19 +8,19 @@ import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.cbstd.rssr.entity.Blog;
+import com.cbstd.rssr.entity.Feed;
 import com.cbstd.rssr.entity.Item;
 import com.cbstd.rssr.entity.User;
 import com.cbstd.rssr.jaxb.rss.exception.RssException;
-import com.cbstd.rssr.repository.BlogRepository;
+import com.cbstd.rssr.repository.FeedRepository;
 import com.cbstd.rssr.repository.ItemRepository;
 import com.cbstd.rssr.repository.UserRepository;
 
 @Service
-public class BlogService {
+public class FeedService {
 
 	@Autowired
-	private BlogRepository blogRepository;
+	private FeedRepository feedRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -31,39 +31,39 @@ public class BlogService {
 	@Autowired
 	private RssService rssService;
 
-	public void saveUserBlog(Blog blog, String username) {
+	public void saveUserFeed(Feed feed, String username) {
 		User user = userRepository.findByUsername(username);
-		saveUserBlog(blog, user);
+		saveUserFeed(feed, user);
 	}
 
-	public void saveUserBlog(Blog blog, int id) {
+	public void saveUserFeed(Feed feed, int id) {
 		User user = userRepository.findOne(id);
-		saveUserBlog(blog, user);
+		saveUserFeed(feed, user);
 	}
 
-	private void saveUserBlog(Blog blog, User user) {
-		blog.setUser(user);
-		blogRepository.save(blog);
-		saveItems(blog);
+	private void saveUserFeed(Feed feed, User user) {
+		feed.setUser(user);
+		feedRepository.save(feed);
+		saveItems(feed);
 	}
 
-	@PreAuthorize("#blog.user.username == authentication.name or hasRole('ROLE_ADMIN')")
-	public void delete(@P("blog") Blog blog) {
-		blogRepository.delete(blog);
+	@PreAuthorize("#feed.user.username == authentication.name or hasRole('ROLE_ADMIN')")
+	public void delete(@P("feed") Feed feed) {
+		feedRepository.delete(feed);
 	}
 
-	public Blog findOne(int id) {
-		return blogRepository.findOne(id);
+	public Feed findOne(int id) {
+		return feedRepository.findOne(id);
 	}
 
-	private void saveItems(Blog blog) {
+	private void saveItems(Feed feed) {
 		try {
-			List<Item> items = rssService.getItems(blog.getUrl());
+			List<Item> items = rssService.getItems(feed.getUrl());
 			for (Item item : items) {
-				Item existingItem = itemRepository.findByBlogAndLink(blog,
+				Item existingItem = itemRepository.findByFeedAndLink(feed,
 						item.getLink());
 				if (null == existingItem) {
-					item.setBlog(blog);
+					item.setFeed(feed);
 					itemRepository.save(item);
 				}
 			}
@@ -73,10 +73,10 @@ public class BlogService {
 	}
 
 	@Scheduled(fixedDelay = 3600000)
-	public void reloadBlogs() {
-		List<Blog> blogs = blogRepository.findAll();
-		for (Blog blog : blogs) {
-			saveItems(blog);
+	public void reloadFeeds() {
+		List<Feed> feeds = feedRepository.findAll();
+		for (Feed feed : feeds) {
+			saveItems(feed);
 
 		}
 	}

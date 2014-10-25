@@ -7,17 +7,17 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-	<c:forEach items="${user.blogs}" var="blog">
-		<li><a href="#blog_${blog.id}" role="tab" data-toggle="tab">${blog.name}</a></li>
+	<c:forEach items="${user.feeds}" var="feed">
+		<li><a href="#feed_${feed.id}" role="tab" data-toggle="tab">${feed.name}</a></li>
 	</c:forEach>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-	<c:forEach items="${user.blogs}" var="blog">
-		<div class="tab-pane" id="blog_${blog.id}">
-			<h1><c:out value="${blog.name}" /></h1>
-			<p><c:out value="${blog.url}" /></p>
+	<c:forEach items="${user.feeds}" var="feed">
+		<div class="tab-pane" id="feed_${feed.id}">
+			<h1><c:out value="${feed.name}" /></h1>
+			<p><c:out value="${feed.url}" /></p>
 		
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
@@ -27,7 +27,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${blog.items}" var="item">
+					<c:forEach items="${feed.items}" var="item">
 						<tr>
 							<td><c:out value="${item.publishDate}" /></td>
 							<td>

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cbstd.rssr.entity.Blog;
+import com.cbstd.rssr.entity.Feed;
 import com.cbstd.rssr.entity.User;
-import com.cbstd.rssr.service.BlogService;
+import com.cbstd.rssr.service.FeedService;
 import com.cbstd.rssr.service.UserService;
 
 @Controller
@@ -26,16 +26,16 @@ public class UserCtrl {
 	private UserService userService;
 	
 	@Autowired
-	private BlogService blogService;
+	private FeedService feedService;
 
 	@ModelAttribute("user")
 	public User constructUser() {
 		return new User();
 	}
 
-	@ModelAttribute("blog")
-	public Blog constructBlog() {
-		return new Blog();
+	@ModelAttribute("feed")
+	public Feed constructFeed() {
+		return new Feed();
 	}
 
 	@RequestMapping(value = "/feeds")
@@ -51,19 +51,19 @@ public class UserCtrl {
 	}
 
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String doAddFeed(Model model, @Valid @ModelAttribute("blog") Blog blog, BindingResult result, Principal principal) {
+	public String doAddFeed(Model model, @Valid @ModelAttribute("feed") Feed feed, BindingResult result, Principal principal) {
 		if(result.hasErrors())
 		{
 			return account(model, principal);
 		}
-		blogService.saveUserBlog(blog, principal.getName());
+		feedService.saveUserFeed(feed, principal.getName());
 		return "redirect:/user/account.html";
 	}
 	
-	@RequestMapping("/blog/remove/{id}")
-	public String removeBlog(@PathVariable int id) {
-		Blog blog = blogService.findOne(id);
-		blogService.delete(blog);
+	@RequestMapping("/feed/remove/{id}")
+	public String removeFeed(@PathVariable int id) {
+		Feed feed = feedService.findOne(id);
+		feedService.delete(feed);
 		return "redirect:/user/account.html";
 	}
 

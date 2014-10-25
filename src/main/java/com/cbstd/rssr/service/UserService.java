@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cbstd.rssr.entity.Blog;
+import com.cbstd.rssr.entity.Feed;
 import com.cbstd.rssr.entity.Role;
 import com.cbstd.rssr.entity.User;
 import com.cbstd.rssr.repository.ItemRepository;
@@ -43,8 +43,8 @@ public class UserService {
 	public User loadUser(int id) {
 		User user = userRepository.loadUserById(id);
 
-		for (Blog blog : user.getBlogs()) {
-			blog.setItems(itemRepository.findByBlog(blog, new PageRequest(0, 10, Direction.DESC, "publishDate")));
+		for (Feed feed : user.getFeeds()) {
+			feed.setItems(itemRepository.findByFeed(feed, new PageRequest(0, 10, Direction.DESC, "publishDate")));
 		}
 
 		return user;

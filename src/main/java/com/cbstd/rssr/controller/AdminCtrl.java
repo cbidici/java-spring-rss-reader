@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cbstd.rssr.entity.Blog;
-import com.cbstd.rssr.service.BlogService;
+import com.cbstd.rssr.entity.Feed;
+import com.cbstd.rssr.service.FeedService;
 import com.cbstd.rssr.service.UserService;
 
 @Controller
@@ -23,11 +23,11 @@ public class AdminCtrl {
 	UserService userService;
 	
 	@Autowired
-	BlogService blogService;
+	FeedService feedService;
 	
-	@ModelAttribute("blog")
-	public Blog constructBlog() {
-		return new Blog();
+	@ModelAttribute("feed")
+	public Feed constructFeed() {
+		return new Feed();
 	}
 	
 	@RequestMapping
@@ -43,13 +43,13 @@ public class AdminCtrl {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public String doAddFeedFromDeail(Model model, @Valid @ModelAttribute("blog") Blog blog, BindingResult result, @PathVariable int id) {
-		blog.setId(null);
+	public String doAddFeedFromDeail(Model model, @Valid @ModelAttribute("feed") Feed feed, BindingResult result, @PathVariable int id) {
+		feed.setId(null);
 		if(result.hasErrors())
 		{
 			return userDetail(model, id);
 		}
-		blogService.saveUserBlog(blog, id);
+		feedService.saveUserFeed(feed, id);
 		model.addAttribute("user", userService.loadUser(id));
 		return "redirect:/users/{id}.html";
 	}

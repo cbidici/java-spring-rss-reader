@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="item")
+@Table(name="rssr_item")
 public class Item {
 
 	@Id
@@ -35,14 +35,14 @@ public class Item {
 	private Date publishDate;
 
 	@ManyToOne
-	private Blog blog;
+	private Feed feed;
 	
-	public Blog getBlog() {
-		return blog;
+	public Feed getFeed() {
+		return feed;
 	}
 
-	public void setBlog(Blog blog) {
-		this.blog = blog;
+	public void setFeed(Feed feed) {
+		this.feed = feed;
 	}
 
 	public Integer getId() {

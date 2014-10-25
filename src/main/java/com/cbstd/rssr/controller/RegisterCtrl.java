@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cbstd.rssr.entity.User;
 import com.cbstd.rssr.service.UserService;
@@ -32,13 +33,14 @@ public class RegisterCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result) {
+	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors())
 		{
 			return "register";
 		}
 		userService.save(user);
-		return "redirect:/register.html?register=success";
+		redirectAttributes.addFlashAttribute("register", "success");
+		return "redirect:/register.html";
 	}
 	
 	@RequestMapping("/available")

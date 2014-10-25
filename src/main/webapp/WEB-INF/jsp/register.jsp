@@ -3,7 +3,7 @@
 
 <%@ include file="/WEB-INF/layout/taglibs.jsp"%>
 
-<c:if test="${param.register eq 'success'}">
+<c:if test="${register eq 'success'}">
 	<div class="alert alert-success">
 		<spring:message code="page.alert.register.success" />
 	</div>

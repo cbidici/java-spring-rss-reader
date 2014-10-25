@@ -23,11 +23,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${user.blogs}" var="blog">
+		<c:forEach items="${user.feeds}" var="feed">
 			<tr>
-				<td><c:out value="${blog.name}" /></td>
-				<td><c:out value="${blog.url}" /></td>
-				<td><a href='<spring:url value="/user/blog/remove/${blog.id}.html" />' class="btn btn-danger triggerRemove"><spring:message code="page.button.label.account.delfeed" /></a></td>
+				<td><c:out value="${feed.name}" /></td>
+				<td><c:out value="${feed.url}" /></td>
+				<td><a href='<spring:url value="/user/feed/remove/${feed.id}.html" />' class="btn btn-danger triggerRemove"><spring:message code="page.button.label.account.delfeed" /></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -54,7 +54,7 @@
 	</div>
 </div>
 
-<form:form id="addFeedForm" commandName="blog" cssClass="form-horizontal">
+<form:form id="addFeedForm" commandName="feed" cssClass="form-horizontal">
 	<!-- Modal -->
 	<div class="modal fade" id="addFeedModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -122,8 +122,8 @@
 						}
 					},
 					messages : {
-						name : "<spring:message code='com.cbstd.rssr.entity.Blog.name.size' arguments='name,32,5' />", 
-						url : "<spring:message code='com.cbstd.rssr.entity.Blog.url.url' />",
+						name : "<spring:message code='com.cbstd.rssr.entity.feed.name.size' arguments='name,32,5' />", 
+						url : "<spring:message code='com.cbstd.rssr.entity.feed.url.url' />",
 					},
 					highlight : function(element){
 						$(element).closest(".form-group").removeClass("has-success").addClass("has-error");

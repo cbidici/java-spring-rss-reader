@@ -15,25 +15,25 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
-@Table(name = "blog")
-public class Blog {
+@Table(name = "rssr_feed")
+public class Feed {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 
-	@Size(min = 1, max = 256, message = "{com.cbstd.rssr.entity.Blog.name.size}")
+	@Size(min = 1, max = 256, message = "{com.cbstd.rssr.entity.feed.name.size}")
 	private String name;
 
-	@Size(min = 1, message = "{com.cbstd.rssr.entity.Blog.url.url}")
-	@URL(message = "{com.cbstd.rssr.entity.Blog.url.url}")
+	@Size(min = 1, message = "{com.cbstd.rssr.entity.feed.url.url}")
+	@URL(message = "{com.cbstd.rssr.entity.feed.url.url}")
 	@Column(length = 1000)
 	private String url;
 
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "blog", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
 	private List<Item> items;
 
 	public User getUser() {

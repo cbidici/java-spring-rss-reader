@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Email;
 import com.cbstd.rssr.annotation.UniqueUsername;
 
 @Entity
-@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
+@Table(name = "rssr_user", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
 public class User {
 
 	@Id
@@ -41,7 +41,7 @@ public class User {
 	private List<Role> roles;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-	private List<Blog> blogs;
+	private List<Feed> feeds;
 
 	private boolean enabled;
 
@@ -53,12 +53,12 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public List<Blog> getBlogs() {
-		return blogs;
+	public List<Feed> getFeeds() {
+		return feeds;
 	}
 
-	public void setBlogs(List<Blog> blogs) {
-		this.blogs = blogs;
+	public void setFeeds(List<Feed> feeds) {
+		this.feeds = feeds;
 	}
 
 	public List<Role> getRoles() {
