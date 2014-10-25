@@ -38,7 +38,7 @@ public class InitDBService {
 	public void init()
 	{
 		
-		if(userRepository.findByUsername("amdin") == null)
+		if(userRepository.findByUsername("admin") == null)
 		{
 			BCryptPasswordEncoder bEncoder = new BCryptPasswordEncoder();
 			
